@@ -680,47 +680,175 @@
 #include "config.h"
 #endif
 
+#include <stdio.h>
 #include <gnuradio/io_signature.h>
 #include "constellation_demodulation_impl.h"
 
 namespace gr {
-  namespace cs330 {
+namespace cs330 {
 
-    constellation_demodulation::sptr
-    constellation_demodulation::make(size_t K)
-    {
-      return gnuradio::get_initial_sptr
-        (new constellation_demodulation_impl(K));
-    }
+constellation_demodulation::sptr constellation_demodulation::make(size_t K) {
+	return gnuradio::get_initial_sptr(new constellation_demodulation_impl(K));
+}
 
-    /*
-     * The private constructor
-     */
-    constellation_demodulation_impl::constellation_demodulation_impl(size_t K)
-      : gr::sync_block("constellation_demodulation",
-              gr::io_signature::make(1, 1, sizeof(gr_complex)),
-              gr::io_signature::make2(2, 2, sizeof(uint8_t), sizeof(float)))
-    {}
+/*
+ * The private constructor
+ */
+constellation_demodulation_impl::constellation_demodulation_impl(size_t K) :
+		gr::sync_block("constellation_demodulation",
+				gr::io_signature::make(1, 1, sizeof(gr_complex)),
+				gr::io_signature::make2(2, 2, sizeof(uint8_t), sizeof(float))),
+				d_bits_number(K) {
+}
 
-    /*
-     * Our virtual destructor.
-     */
-    constellation_demodulation_impl::~constellation_demodulation_impl()
-    {
-    }
+/*
+ * Our virtual destructor.
+ */
+constellation_demodulation_impl::~constellation_demodulation_impl() {
+}
 
-    int
-    constellation_demodulation_impl::work(int noutput_items,
-        gr_vector_const_void_star &input_items,
-        gr_vector_void_star &output_items)
-    {
+int constellation_demodulation_impl::work(int noutput_items,
+		gr_vector_const_void_star &input_items,
+		gr_vector_void_star &output_items) {
 
-      // Do <+signal processing+>
+	const gr_complex *in = (const gr_complex *) input_items[0];
+	uint8_t *out = (uint8_t *) output_items[0];
+	float *evm = (float *) output_items[1];
+	float incoming_re, incoming_im,real_ref,im_ref;
+	int real_ceil, real_floor, imag_ceil, imag_floor, real_idx, im_idx;
+	double perror,pref;
+	switch (d_bits_number) {
+	case 1:
+		for( int i = 0; i < noutput_items; i++){
+			incoming_re = std::real(in[i]);
+			if( incoming_re >0){
+				out[i] = 1;
+				real_ref = 1;
+			}
+			else{
+				out[i]= 0;
+				real_ref = -1;
+			}
+			perror = std::sqrt(std::pow(incoming_re - real_ref,2));
+			pref = std::sqrt(std::pow(1,2));
+			evm[i] = 10*std::log10(perror/pref);
+		}
 
-      // Tell runtime system how many output items we produced.
-      return noutput_items;
-    }
+		break;
+	case 2:
+		for( int i = 0; i < noutput_items; i++){
+					incoming_re = std::real(in[i])*std::sqrt(2);
+					incoming_im = std::imag(in[i])*std::sqrt(2);
+					real_ceil = std::ceil(incoming_re);
+					real_floor = std::floor(incoming_re);
+					imag_ceil = std::ceil(incoming_im);
+					imag_floor = std::floor(incoming_im);
 
-  } /* namespace cs330 */
+						if (std::abs(real_ceil) % 2 == 1){
+							real_idx = find_index(real_ceil, 2, d_qpsk_indexes);
+							real_ref = real_ceil;
+						}
+						else{
+							real_idx = find_index(real_floor, 2, d_qpsk_indexes);
+							real_ref = real_floor;
+						}
+						if (std::abs(imag_ceil) % 2 == 1){
+							im_idx = find_index(imag_ceil, 2, d_qpsk_indexes);
+							im_ref = imag_ceil;
+						}
+						else{
+							im_idx = find_index(imag_floor, 2, d_qpsk_indexes);
+							im_ref = imag_floor;
+						}
+
+					out[i] = d_qpsk[im_idx][real_idx];
+					perror = std::sqrt(std::pow(incoming_re - real_ref,2) +std::pow(incoming_im - im_ref,2));
+					pref = std::sqrt(std::pow(real_ref,2) + std::pow(im_ref,2));
+					evm[i] = 10*std::log10(perror/pref);
+				}
+				break;
+
+	case 4:
+		for( int i = 0; i < noutput_items; i++){
+			incoming_re = std::real(in[i])*std::sqrt(10);
+			incoming_im = std::imag(in[i])*std::sqrt(10);
+			real_ceil = std::ceil(incoming_re);
+			real_floor = std::floor(incoming_re);
+			imag_ceil = std::ceil(incoming_im);
+			imag_floor = std::floor(incoming_im);
+
+				if (std::abs(real_ceil) % 2 == 1){
+					real_idx = find_index(real_ceil, 4, d_16qam_indexes);
+					real_ref = real_ceil;
+				}
+				else{
+					real_idx = find_index(real_floor, 4, d_16qam_indexes);
+					real_ref = real_floor;
+				}
+				if (std::abs(imag_ceil) % 2 == 1){
+					im_idx = find_index(imag_ceil, 4, d_16qam_indexes);
+					im_ref = imag_ceil;
+				}
+				else{
+					im_idx = find_index(imag_floor, 4, d_16qam_indexes);
+					im_ref = imag_floor;
+				}
+
+			out[i] = d_16qam[im_idx][real_idx];
+			perror = std::sqrt(std::pow(incoming_re - real_ref,2) +std::pow(incoming_im - im_ref,2));
+			pref = std::sqrt(std::pow(real_ref,2) + std::pow(im_ref,2));
+			evm[i] = 10*std::log10(perror/pref);
+		}
+		break;
+
+	case 6:
+		for( int i = 0; i < noutput_items; i++){
+			incoming_re = std::real(in[i])*std::sqrt(42);
+			incoming_im = std::imag(in[i])*std::sqrt(42);
+			real_ceil = std::ceil(incoming_re);
+			real_floor = std::floor(incoming_re);
+			imag_ceil = std::ceil(incoming_im);
+			imag_floor = std::floor(incoming_im);
+
+				if (std::abs(real_ceil) % 2 == 1){
+					real_idx = find_index(real_ceil, 8, d_64qam_indexes);
+					real_ref = real_ceil;
+				}
+				else{
+					real_idx = find_index(real_floor, 8, d_64qam_indexes);
+					real_ref = real_floor;
+				}
+				if (std::abs(imag_ceil) % 2 == 1){
+					im_idx = find_index(imag_ceil, 8, d_64qam_indexes);
+					im_ref = imag_ceil;
+				}
+				else{
+					im_idx = find_index(imag_floor, 8, d_64qam_indexes);
+					im_ref = imag_floor;
+				}
+
+			out[i] = d_64qam[im_idx][real_idx];
+			perror = std::sqrt(std::pow(incoming_re - real_ref,2) +std::pow(incoming_im - im_ref,2));
+			pref = std::sqrt(std::pow(real_ref,2) + std::pow(im_ref,2));
+			evm[i] = 10*std::log10(perror/pref);
+		}
+		break;
+
+	}
+
+	// Tell runtime system how many output items we produced.
+	return noutput_items;
+}
+int constellation_demodulation_impl::find_index(int ind,int size,const int array[]){
+	for(int i = 0;i<size;i++){
+		if(array[i] == ind){
+			return i;
+		}
+	}
+	return 0;
+
+}
+
+} /* namespace cs330 */
 } /* namespace gr */
 

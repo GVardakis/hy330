@@ -680,6 +680,7 @@
 #include "config.h"
 #endif
 
+#include <stdio.h>
 #include <gnuradio/io_signature.h>
 #include "constellation_mapping_impl.h"
 
@@ -687,19 +688,20 @@ namespace gr {
   namespace cs330 {
 
     constellation_mapping::sptr
-    constellation_mapping::make(size_t K)
+    constellation_mapping::make(int bits_number)
     {
       return gnuradio::get_initial_sptr
-        (new constellation_mapping_impl(K));
+        (new constellation_mapping_impl(bits_number));
     }
 
     /*
      * The private constructor
      */
-    constellation_mapping_impl::constellation_mapping_impl(size_t K)
+    constellation_mapping_impl::constellation_mapping_impl(int bits_number)
       : gr::sync_block("constellation_mapping",
-              gr::io_signature::make(1, 1, sizeof(uint8_t)),
-              gr::io_signature::make(1, 1, sizeof(gr_complex)))
+              gr::io_signature::make(1,1, sizeof(uint8_t)),
+              gr::io_signature::make(1, 1, sizeof(gr_complex))),
+    		  d_bits_number(bits_number)
     {}
 
     /*
@@ -709,17 +711,109 @@ namespace gr {
     {
     }
 
-    int
-    constellation_mapping_impl::work(int noutput_items,
-        gr_vector_const_void_star &input_items,
-        gr_vector_void_star &output_items)
-    {
+int constellation_mapping_impl::work(int noutput_items,
+		gr_vector_const_void_star &input_items,
+		gr_vector_void_star &output_items) {
+	const uint8_t *in = (const uint8_t *) input_items[0];
+	gr_complex *out = (gr_complex *) output_items[0];
+	int re = 0;
+	int im = 0;
+	int half = 0;
+	int a1 = 0;
+	int a2 = 0;
+	int b1 = 0;
+	int b2 = 0;
+	float norm = 0.0;
+	for (int i = 0; i < noutput_items; i++) {
+		switch (d_bits_number) {
+		case 1:
+			if (in[i] & 0x01) {
+				construct_complex(1, 0, out, i);
+			} else {
+				construct_complex(-1, 0, out, i);
+			}
+			break;
+		case 2:
+			norm = 1.0/std::sqrt(2);
+			if (in[i] == 1)
+				construct_complex(-1*norm, 1*norm, out, i);
+			else if (in[i] == 0)
+				construct_complex(-1*norm, -1*norm, out, i);
+			else if (in[i] == 2)
+				construct_complex(1*norm, -1*norm, out, i);
+			else
+				construct_complex(1*norm, 1*norm, out, i);
+			break;
+		case 4:
+			half = in[i] >> 2;
+			norm = norm = 1.0/std::sqrt(10);
+			if (half == 0)
+				re = -3;
+			else if (half == 1)
+				re = -1;
+			else if (half == 3)
+				re = 1;
+			else
+				re = 3;
+			half = in[i] & 0x3;
+			if (half == 0)
+				im = -3;
+			else if (half == 1)
+				im = -1;
+			else if (half == 2)
+				im = 3;
+			else
+				im = 1;
+			construct_complex(re*norm, im*norm, out, i);
+			break;
+		case 6:
+			half = in[i] >> 3;
+			norm = norm = 1.0/std::sqrt(42);
+			if (half == 0)
+				re = -7;
+			else if (half == 1)
+				re = -5;
+			else if (half == 3)
+				re = -3;
+			else if (half == 2)
+				re = -1;
+			else if (half == 6)
+				re = 1;
+			else if (half == 7)
+				re = 3;
+			else if (half == 5)
+				re = 5;
+			else
+				re = 7;
+			half = in[i] & 0x7;
+			if (half == 0)
+				im = -7;
+			else if (half == 1)
+				im = -5;
+			else if (half == 3)
+				im = -3;
+			else if (half == 2)
+				im = -1;
+			else if (half == 6)
+				im = 1;
+			else if (half == 7)
+				im = 3;
+			else if (half == 5)
+				im = 5;
+			else
+				im = 7;
+			construct_complex(re*norm, im*norm, out, i);
+			break;
 
-      // Do <+signal processing+>
-
-      // Tell runtime system how many output items we produced.
-      return noutput_items;
+		}
+	}
+        // Tell runtime system how many output items we produced.
+        return noutput_items;
     }
+void constellation_mapping_impl::construct_complex(float real, float imag,
+		gr_complex* out, int i) {
+	out[i] = gr_complex(real, imag);
+}
 
   } /* namespace cs330 */
 } /* namespace gr */

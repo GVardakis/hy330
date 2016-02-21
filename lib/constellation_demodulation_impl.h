@@ -687,7 +687,29 @@ namespace gr {
     class constellation_demodulation_impl : public constellation_demodulation
     {
      private:
-      // Nothing to declare in this block.
+    	size_t d_bits_number;
+/*    	const int d_bpsk[2][1];
+    	const int d_qpsk[2][2];
+    	const int d_16qam[4][4];*/
+    const int d_qpsk_indexes[2] = {-1 , 1};
+    const uint8_t d_qpsk[2][2] = {{0,2},
+    							{1,3}};
+    const int d_16qam_indexes[4] = {-3,-1,1,3};
+    const uint8_t d_16qam[4][4] = { {0,4,12,8},
+    								{1,5,13,9},
+    								{3,7,15,11},
+    								{2,6,14,10}};
+	const int d_64qam_indexes[8] = { -7, -5, -3, -1, 1, 3, 5, 7 };
+	const uint8_t d_64qam[8][8] = { {0,8,24,16,48,56,40,32 },
+									{1,9,25,17,49,57,41,33 },
+									{3,11,27,19,51,59,43,35 },
+									{2,10,26,18,50,58,42,34 },
+									{6,14,30,22,54,62,46,38 },
+									{7,15,31,23,55,63,47,39 },
+									{5,13,29,21,53,61,45,37 },
+									{4,12,28,20,52,60,44,36 }};
+
+    	int find_index(int ind,int size,const int array[]);
 
      public:
       constellation_demodulation_impl(size_t K);

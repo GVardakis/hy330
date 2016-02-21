@@ -704,7 +704,7 @@ namespace gr {
        * class. cs330::constellation_mapping::make is the public interface for
        * creating new instances.
        */
-      static sptr make(size_t K);
+      static sptr make(int bits_number);
     };
 
   } // namespace cs330

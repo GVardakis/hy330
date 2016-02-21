@@ -687,16 +687,18 @@ namespace gr {
     class constellation_mapping_impl : public constellation_mapping
     {
      private:
-      // Nothing to declare in this block.
+      int d_bits_number;
 
+      void construct_complex(float real, float imag, gr_complex* out, int i);
      public:
-      constellation_mapping_impl(size_t K);
+      constellation_mapping_impl(int bits_number);
       ~constellation_mapping_impl();
+
 
       // Where all the action really happens
       int work(int noutput_items,
-         gr_vector_const_void_star &input_items,
-         gr_vector_void_star &output_items);
+	       gr_vector_const_void_star &input_items,
+	       gr_vector_void_star &output_items);
     };
 
   } // namespace cs330
