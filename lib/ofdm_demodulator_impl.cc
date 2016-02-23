@@ -715,7 +715,10 @@ namespace gr {
         gr_vector_void_star &output_items)
     {
 
-      // Do <+signal processing+>
+      for (int i =0; i< noutput_items ; i++){
+
+
+      }
 
       // Tell runtime system how many output items we produced.
       return noutput_items;

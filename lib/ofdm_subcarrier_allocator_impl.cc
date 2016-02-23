@@ -716,23 +716,24 @@ namespace gr {
         gr_vector_const_void_star &input_items,
         gr_vector_void_star &output_items)
     {
-	const gr_complex **in = (const gr_complex **) input_items[0];
-	gr_complex **out = (gr_complex **) output_items[0];
+	const gr_complex *in = (const gr_complex *) input_items[0];
+	gr_complex *out = (gr_complex *) output_items[0];
+	memset(out, 0, noutput_items*64*sizeof(gr_complex));
 	for (int i = 0; i < noutput_items; i++) {
-		printf("bla]n");
-		//memset(out[i], 0, 64*sizeof(gr_complex));
 		for (int j = 0; j < 48; j++) {
-			out[i][j] = in[i][const_mapping[j]];
+			out[i + const_mapping[j]] = in[j];
 		}
 		for (int j = 0; j < 4; j++) {
 			if (j == 3)
-				out[i][pilots[j]] = gr_complex(-1 * polarity[d_symbols_count]);
+				out[i + pilots[j]] = gr_complex(
+				        -1 * polarity[d_symbols_count],0);
 			else
-				out[i][pilots[j]] = gr_complex(1 * polarity[d_symbols_count]);
+				out[i + pilots[j]] = gr_complex(
+				        1 * polarity[d_symbols_count],0);
 		}
 		d_symbols_count++;
-		if(d_symbols_count == 127)
-			d_symbols_count= 0;
+		if (d_symbols_count == 127)
+			d_symbols_count = 0;
 	}
 
 

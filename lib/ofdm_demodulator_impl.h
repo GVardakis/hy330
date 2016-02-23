@@ -681,25 +681,44 @@
 
 #include <cs330/ofdm_demodulator.h>
 
-namespace gr {
-  namespace cs330 {
+namespace gr
+{
+namespace cs330
+{
 
-    class ofdm_demodulator_impl : public ofdm_demodulator
-    {
-     private:
-      // Nothing to declare in this block.
+class ofdm_demodulator_impl : public ofdm_demodulator
+{
+private:
+	const char polarity[127] =
+		{ 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, -1, 1, -1,
+		        -1, 1, 1, -1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1,
+		        -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1,
+		        -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, -1, -1,
+		        1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, 1,
+		        -1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, -1, 1, -1, -1,
+		        -1, -1, -1, 1, -1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, 1,
+		        -1, -1, -1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1 };
+	size_t d_symbols_count;
+	const int const_mapping[48] =
+		{ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+		        19, 21, 22, 23, 24, 25, 26, 38, 39, 40, 41, 42, 43, 45,
+		        46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 57, 58, 59, 60,
+		        61, 62, 63 };
 
-     public:
-      ofdm_demodulator_impl();
-      ~ofdm_demodulator_impl();
+	const int pilots[4] =
+		{ 6, 20, 44, 58 };
 
-      // Where all the action really happens
-      int work(int noutput_items,
-         gr_vector_const_void_star &input_items,
-         gr_vector_void_star &output_items);
-    };
+public:
+	ofdm_demodulator_impl();
+	~ofdm_demodulator_impl();
 
-  } // namespace cs330
+	// Where all the action really happens
+	int
+	work(int noutput_items, gr_vector_const_void_star &input_items,
+	     gr_vector_void_star &output_items);
+};
+
+} // namespace cs330
 } // namespace gr
 
 #endif /* INCLUDED_CS330_OFDM_DEMODULATOR_IMPL_H */
