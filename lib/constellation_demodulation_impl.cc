@@ -720,7 +720,6 @@ int constellation_demodulation_impl::work(int noutput_items,
 	switch (d_bits_number) {
 	case 1:
 		for( int i = 0; i < noutput_items; i++){
-			incoming_re = std::real(in[i]);
 			if( incoming_re >0){
 				out[i] = 1;
 				real_ref = 1;

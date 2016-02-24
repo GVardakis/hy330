@@ -147,7 +147,7 @@
     </param>
     <param>
       <key>value</key>
-      <value>4</value>
+      <value>1</value>
     </param>
   </block>
   <block>
@@ -296,6 +296,49 @@
     <param>
       <key>k</key>
       <value>mod_order</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_pack_k_bits_bb</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(984, 370)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_pack_k_bits_bb_0_0</value>
+    </param>
+    <param>
+      <key>k</key>
+      <value>8</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -507,6 +550,49 @@
     </param>
   </block>
   <block>
+    <key>blocks_unpack_k_bits_bb</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(824, 410)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_unpack_k_bits_bb_0_0</value>
+    </param>
+    <param>
+      <key>k</key>
+      <value>mod_order</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
     <key>blocks_vector_to_stream</key>
     <param>
       <key>alias</key>
@@ -683,7 +769,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(640, 442)</value>
+      <value>(560, 546)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -711,6 +797,49 @@
     </param>
     <param>
       <key>seed</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>cs330_constellation_demodulation</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(584, 786)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>cs330_constellation_demodulation_0</value>
+    </param>
+    <param>
+      <key>K</key>
+      <value>mod_order</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
       <value>0</value>
     </param>
   </block>
@@ -836,6 +965,57 @@
     </param>
   </block>
   <block>
+    <key>fec_ber_bf</key>
+    <param>
+      <key>berlimit</key>
+      <value>-7.0</value>
+    </param>
+    <param>
+      <key>berminerrors</key>
+      <value>100</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1016, 642)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>fec_ber_bf_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>test_mode</key>
+      <value>False</value>
+    </param>
+  </block>
+  <block>
     <key>fft_vxx</key>
     <param>
       <key>alias</key>
@@ -926,7 +1106,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(376, 578)</value>
+      <value>(328, 666)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1647,6 +1827,468 @@
       <value>-2</value>
     </param>
   </block>
+  <block>
+    <key>qtgui_number_sink</key>
+    <param>
+      <key>autoscale</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>avg</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1128, 458)</value>
+    </param>
+    <param>
+      <key>gui_hint</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>graph_type</key>
+      <value>qtgui.NUM_GRAPH_HORIZ</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>qtgui_number_sink_0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>float</value>
+    </param>
+    <param>
+      <key>color1</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor1</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label1</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit1</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color10</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor10</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label10</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit10</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color2</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor2</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label2</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit2</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color3</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor3</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label3</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit3</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color4</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor4</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label4</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit4</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color5</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor5</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label5</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit5</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color6</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor6</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label6</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit6</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color7</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor7</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label7</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit7</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color8</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor8</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label8</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit8</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color9</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor9</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label9</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit9</key>
+      <value></value>
+    </param>
+    <param>
+      <key>max</key>
+      <value>100</value>
+    </param>
+    <param>
+      <key>min</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>name</key>
+      <value>"BER"</value>
+    </param>
+    <param>
+      <key>nconnections</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>update_time</key>
+      <value>0.10</value>
+    </param>
+  </block>
+  <block>
+    <key>qtgui_number_sink</key>
+    <param>
+      <key>autoscale</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>avg</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1080, 922)</value>
+    </param>
+    <param>
+      <key>gui_hint</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>graph_type</key>
+      <value>qtgui.NUM_GRAPH_HORIZ</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>qtgui_number_sink_0_0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>float</value>
+    </param>
+    <param>
+      <key>color1</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor1</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label1</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit1</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color10</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor10</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label10</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit10</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color2</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor2</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label2</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit2</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color3</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor3</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label3</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit3</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color4</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor4</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label4</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit4</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color5</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor5</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label5</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit5</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color6</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor6</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label6</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit6</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color7</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor7</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label7</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit7</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color8</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor8</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label8</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit8</key>
+      <value></value>
+    </param>
+    <param>
+      <key>color9</key>
+      <value>("black", "black")</value>
+    </param>
+    <param>
+      <key>factor9</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>label9</key>
+      <value></value>
+    </param>
+    <param>
+      <key>unit9</key>
+      <value></value>
+    </param>
+    <param>
+      <key>max</key>
+      <value>10</value>
+    </param>
+    <param>
+      <key>min</key>
+      <value>-70</value>
+    </param>
+    <param>
+      <key>name</key>
+      <value>"EVM"</value>
+    </param>
+    <param>
+      <key>nconnections</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>update_time</key>
+      <value>0.10</value>
+    </param>
+  </block>
   <connection>
     <source_block_id>analog_random_source_x_0</source_block_id>
     <sink_block_id>blocks_throttle_0</sink_block_id>
@@ -1656,6 +2298,12 @@
   <connection>
     <source_block_id>blocks_pack_k_bits_bb_0</source_block_id>
     <sink_block_id>cs330_constellation_mapping_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_pack_k_bits_bb_0_0</source_block_id>
+    <sink_block_id>fec_ber_bf_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1678,14 +2326,32 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>blocks_throttle_0</source_block_id>
+    <sink_block_id>fec_ber_bf_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
     <source_block_id>blocks_unpack_k_bits_bb_0</source_block_id>
     <sink_block_id>blocks_pack_k_bits_bb_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>blocks_unpack_k_bits_bb_0_0</source_block_id>
+    <sink_block_id>blocks_pack_k_bits_bb_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>blocks_vector_to_stream_0</source_block_id>
     <sink_block_id>channels_cfo_model_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_vector_to_stream_0_0</source_block_id>
+    <sink_block_id>cs330_constellation_demodulation_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1708,6 +2374,18 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>cs330_constellation_demodulation_0</source_block_id>
+    <sink_block_id>blocks_unpack_k_bits_bb_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>cs330_constellation_demodulation_0</source_block_id>
+    <sink_block_id>qtgui_number_sink_0_0</sink_block_id>
+    <source_key>1</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>cs330_constellation_mapping_0</source_block_id>
     <sink_block_id>blocks_stream_to_vector_0</sink_block_id>
     <source_key>0</source_key>
@@ -1722,6 +2400,12 @@
   <connection>
     <source_block_id>cs330_ofdm_subcarrier_allocator_0</source_block_id>
     <sink_block_id>fft_vxx_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fec_ber_bf_0</source_block_id>
+    <sink_block_id>qtgui_number_sink_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
