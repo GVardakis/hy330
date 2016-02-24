@@ -707,6 +707,9 @@ private:
 
 	const int pilots[4] =
 		{ 6, 20, 44, 58 };
+	size_t d_symbols_num;
+	gr_complex *d_corrected;
+	gr_complex d_rotator;
 
 public:
 	ofdm_demodulator_impl();

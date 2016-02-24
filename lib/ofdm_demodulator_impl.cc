@@ -699,8 +699,13 @@ namespace gr {
     ofdm_demodulator_impl::ofdm_demodulator_impl()
       : gr::sync_block("ofdm_demodulator",
               gr::io_signature::make(1, 1, 64 * sizeof(gr_complex)),
-              gr::io_signature::make(1, 1, 48 * sizeof(gr_complex)))
-    {}
+              gr::io_signature::make(1, 1, 48 * sizeof(gr_complex))),
+			  d_symbols_num(0),
+			  d_rotator(gr_complex(1,0))
+    {
+    	d_corrected = (gr_complex*)malloc(64*sizeof(gr_complex));
+
+    }
 
     /*
      * Our virtual destructor.
@@ -714,10 +719,30 @@ namespace gr {
         gr_vector_const_void_star &input_items,
         gr_vector_void_star &output_items)
     {
-
+    	const gr_complex *in = (const gr_complex *) input_items[0];
+    	gr_complex *out = (gr_complex *) output_items[0];
+      double rotation;
+      int index_in, index_out;
       for (int i =0; i< noutput_items ; i++){
+		index_in = i * 64;
+		index_out = i * 48;
+    	  for (int j =0; j < 64 ; j++){
+    		  d_corrected[j] = in[index_in + j] * d_rotator;
+    	  }
 
+    	  rotation = (std::arg(gr_complex(polarity[d_symbols_num],0) * d_corrected[pilots[0]])
+    	  + std::arg(gr_complex(polarity[d_symbols_num],0) * d_corrected[pilots[1]])
+    	  + std::arg(gr_complex(polarity[d_symbols_num],0) * d_corrected[pilots[2]])
+    	  + std::arg(gr_complex(-polarity[d_symbols_num],0) * d_corrected[pilots[3]]))/4.0;
 
+    	  d_rotator = std::polar((float) 1.0, (float) -rotation);
+    	  for (int j =0; j < 48 ; j++){
+    		  out[index_out + j] = d_corrected[const_mapping[j]] * d_rotator;
+    	  }
+
+    	  d_symbols_num++;
+    	  if(d_symbols_num == 127)
+    		  d_symbols_num = 0;
       }
 
       // Tell runtime system how many output items we produced.

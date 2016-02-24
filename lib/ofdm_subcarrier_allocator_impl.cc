@@ -718,19 +718,24 @@ namespace gr {
     {
 	const gr_complex *in = (const gr_complex *) input_items[0];
 	gr_complex *out = (gr_complex *) output_items[0];
-	memset(out, 0, noutput_items*64*sizeof(gr_complex));
+    int index_in ,index_out;
 	for (int i = 0; i < noutput_items; i++) {
+		index_in = i * 48;
+		index_out = i * 64;
+		memset(out + index_out, 0, 64*sizeof(gr_complex));
 		for (int j = 0; j < 48; j++) {
-			out[i + const_mapping[j]] = in[j];
+			out[index_out + const_mapping[j]] = in[index_in +j];
 		}
 		for (int j = 0; j < 4; j++) {
 			if (j == 3)
-				out[i + pilots[j]] = gr_complex(
+				out[index_out + pilots[j]] = gr_complex(
 				        -1 * polarity[d_symbols_count],0);
 			else
-				out[i + pilots[j]] = gr_complex(
+				out[index_out + pilots[j]] = gr_complex(
 				        1 * polarity[d_symbols_count],0);
+
 		}
+
 		d_symbols_count++;
 		if (d_symbols_count == 127)
 			d_symbols_count = 0;
